@@ -114,7 +114,17 @@ def clean_sku(sku):
     cleaned = re.sub(r'[^a-zA-Z0-9]', '', sku)
     print(f"Cleaned SKU: {cleaned}")
     return cleaned
-
+def generate_queries(variation, brand_settings):
+    brand_names = brand_settings.get("names", [])
+    brand_names.append("")
+    queries = []
+    for brand_name in brand_names:
+        query = f"\"{variation}\" {brand_name}"
+        if brand_name == "":
+            query = f"\"{variation}\""
+        query = f"https://www.google.com/search?q={query}"
+        queries.append(query)
+    return queries
 
 
 if __name__=="__main__":
@@ -126,3 +136,8 @@ if __name__=="__main__":
     test_sku="BB50V9B1UC105"#Temp Value needs to be passed in
     test_SKUManager=SKUManager(test_settings)
     variations=test_SKUManager.generate_variations(test_sku,test_settings)
+    queries=[]
+    for variation in variations:
+        queries.extend(generate_queries(variation,test_settings))
+    print(queries)
+    #Returns queries
