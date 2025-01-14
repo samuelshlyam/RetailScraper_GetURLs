@@ -53,9 +53,9 @@ if __name__=="__main__":
     settings_directory = os.path.join(current_directory, "brand_settings.json")
     settings = json.loads(open(settings_directory).read())
     brand_settings = BrandSettings(settings)
-    test_settings = brand_settings.get_rules_for_brand("Givenchy")
+    test_settings = brand_settings.get_rules_for_brand("Givenchy") #Temp value needs to be passed in
     final_output=[]
-    variation="BB50V9B1UC105"#Temp valueneeds to be passed in
+    variation="BB50V9B1UC105" #Temp value needs to be passed in
     queries = generate_queries(variation,test_settings)
     for query in queries:
         driver=webdriver.Chrome(options=options)
